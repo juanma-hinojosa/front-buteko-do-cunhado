@@ -1,0 +1,33 @@
+.ventas-report {
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.tabla-ventas {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+
+.tabla-ventas th, .tabla-ventas td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.tabla-ventas th {
+  background-color: #f4f4f4;
+  text-align: left;
+}
+
+.resumen p {
+  margin: 5px 0;
+  font-weight: bold;
+}

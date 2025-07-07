@@ -1,0 +1,75 @@
+.itemmenu-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.itemmenu-form {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 2rem;
+}
+
+.itemmenu-form textarea,
+.itemmenu-form input,
+.itemmenu-form select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.itemmenu-form button {
+  grid-column: span 2;
+  padding: 10px;
+  background-color: #009688;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.itemmenu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.itemmenu-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 10px;
+  background: #fafafa;
+  color: black;
+}
+
+.itemmenu-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.itemmenu-card h4 {
+  margin: 10px 0 5px;
+}
+
+.itemmenu-card button {
+  margin-right: 8px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.itemmenu-card button.delete {
+  background: #e74c3c;
+  color: white;
+}
+
+.itemmenu-card button:not(.delete) {
+  background: #2980b9;
+  color: white;
+}

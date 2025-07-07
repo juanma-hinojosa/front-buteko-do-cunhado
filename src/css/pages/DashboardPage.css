@@ -1,0 +1,118 @@
+/* Contenedor principal */
+.admin-panel-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Barra lateral */
+.admin-aside {
+    background-color: #050505;
+    color: #fff;
+    width: 250px;
+    padding: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.admin-aside nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.admin-aside nav ul li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.admin-aside nav ul li:hover {
+    background-color: #f7371d;
+}
+
+.admin-close-btn {
+    display: none;
+}
+
+
+
+/* Main */
+.admin-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* Header */
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ec270d;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.admin-menu-toggle {
+    display: none;
+}
+
+
+
+/* Panel de contenido */
+.admin-panel-content {
+    padding: 1rem;
+}
+
+/* Info de usuario */
+.admin-user-info {
+    text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-aside {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        transform: translateX(-100%);
+        z-index: 100;
+    }
+
+    .admin-close-btn {
+        display: block;
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 24px;
+        margin-bottom: 1rem;
+        cursor: pointer;
+    }
+
+    .admin-menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .admin-aside.open {
+        transform: translateX(0);
+    }
+
+    .admin-header h1 {
+        display: none;
+        font-size: 1.2rem;
+    }
+
+    .admin-user-info {
+        display: none;
+    }
+}
