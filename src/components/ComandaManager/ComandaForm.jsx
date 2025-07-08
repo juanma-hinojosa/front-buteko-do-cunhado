@@ -3,6 +3,8 @@ import io from "socket.io-client";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+// const socket = io("http://localhost:5000"); // Ajustá según tu dominio si estás en producción
+
 const socket = io("https://back-buteko-do-cunhado.onrender.com"); // Ajustá según tu dominio si estás en producción
 
 const CrearComanda = () => {

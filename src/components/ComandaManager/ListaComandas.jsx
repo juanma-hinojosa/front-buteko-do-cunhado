@@ -14,7 +14,7 @@ const ComandaList = () => {
   useEffect(() => {
     const cargar = async () => {
       const token = localStorage.getItem("token");
-      const res = await axios.get( `${import.meta.env.VITE_API_URL}/api/comandas`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/comandas`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setComandas(res.data);
@@ -125,13 +125,19 @@ const ComandaList = () => {
               <small>Estado: {c.estado}</small>
               <ul>
                 {c.items.map((it, i) => (
-                  <li key={i}
-                    style={{
-                      textTransform: "capitalize"
-                    }}
-                  >
+                  // <li key={i}
+                  //   style={{
+                  //     textTransform: "capitalize"
+                  //   }}
+                  // >
+                  //   {it.producto?.nombre || "Eliminado"} – {it.observacion || "Sin obs"} –
+                  //   <strong > R$ {it.producto?.valor?.toFixed(2) || "0.00"}</strong>
+                  // </li>
+
+                  <li key={i} style={{ textTransform: "capitalize" }}>
                     {it.producto?.nombre || "Eliminado"} – {it.observacion || "Sin obs"} –
-                    <strong > R$ {it.producto?.valor?.toFixed(2) || "0.00"}</strong>
+                    <strong> R$ {it.producto?.valor?.toFixed(2) || "0.00"}</strong>
+                    {it.nuevo && <span style={{ color: "red", marginLeft: "6px" }}>🆕</span>}
                   </li>
                 ))}
               </ul>
@@ -142,25 +148,6 @@ const ComandaList = () => {
                 }</strong>
               </p>
 
-              {/* <AgregarItemComanda comandaId={c._id} /> */}
-
-              {/* <div className="botones-estado">
-                {ESTADOS.filter((e) => e !== c.estado).map((e) => (
-                  <button
-                    key={e}
-                    onClick={() => cambiarEstado(c._id, e)}
-                    style={{
-                      marginRight: "5px",
-                      padding: "4px 8px",
-                      backgroundColor: "#eee",
-                      border: "1px solid #aaa",
-                      borderRadius: "4px",
-                    }}
-                  >
-                    Marcar como {e}
-                  </button>
-                ))}
-              </div> */}
 
 
               {c.estado !== "cerrado" && <AgregarItemComanda comandaId={c._id} />}
