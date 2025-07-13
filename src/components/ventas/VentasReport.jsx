@@ -9,7 +9,7 @@ import logo from "/images/logo.jpg"
 
 // const METODOS_PAGO = ['dinheiro', 'pix', 'cartão de crédito', 'cartão de débito'];
 
-const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+const diasSemana = ['Domingo', 'Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
 
 const InformeVentas = () => {
   const [comandas, setComandas] = useState([]);
@@ -183,14 +183,19 @@ const InformeVentas = () => {
     <div style={{ padding: 20 }}>
       <h2>Informe de Vendas</h2>
 
-      <div style={{ marginBottom: 20 }}>
-        <button onClick={() => handleUltimosDias(0)}>Hoje</button>
-        <button onClick={() => handleUltimosDias(1)}>Ontem</button>
-        <button onClick={() => handleUltimosDias(2)}>2 dias atrás</button>
-        <button onClick={() => handleUltimosDias(3)}>3 dias atrás</button>
-        <button onClick={() => handleUltimosDias(4)}>4 dias atrás</button>
-        <button onClick={() => handleUltimosDias(5)}>5 dias atrás</button>
-        <button onClick={() => handleUltimosDias(6)}>6 dias atrás</button>
+      <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+          gap: "1rem",
+          marginBottom: 20,
+        }}>
+        <button style={{padding:"10px"}} onClick={() => handleUltimosDias(0)}>Hoje</button>
+        <button style={{padding:"10px"}} onClick={() => handleUltimosDias(1)}>Ontem</button>
+        <button style={{padding:"10px"}} onClick={() => handleUltimosDias(2)}>2 dias atrás</button>
+        <button style={{padding:"10px"}} onClick={() => handleUltimosDias(3)}>3 dias atrás</button>
+        <button style={{padding:"10px"}} onClick={() => handleUltimosDias(4)}>4 dias atrás</button>
+        <button style={{padding:"10px"}} onClick={() => handleUltimosDias(5)}>5 dias atrás</button>
+        <button style={{padding:"10px"}} onClick={() => handleUltimosDias(6)}>6 dias atrás</button>
       </div>
 
       <div style={{ marginBottom: 20 }}>

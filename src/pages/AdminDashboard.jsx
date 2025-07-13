@@ -48,10 +48,6 @@ const DashboardAdmin = () => {
           </Link>
 
           <ul className="poppins-light">
-            {/* <li onClick={() => { setView("empleados"); setIsMenuOpen(false); }}>
-              <Icon icon="simple-icons:codechef" /> Empregados
-
-            </li> */}
 
             {user?.role === "admin" && (
               <li onClick={() => { setView("empleados"); setIsMenuOpen(false); }}>
@@ -72,11 +68,6 @@ const DashboardAdmin = () => {
                 <Icon icon="tabler:report-money" /> Relatorio de vendas
               </li>
             )}
-
-
-            {/* <li onClick={() => { setView("flyers"); setIsMenuOpen(false); }}>
-              <Icon icon="lets-icons:img-out-box-fill" /> Propaganda
-            </li> */}
 
             {user?.role === "admin" && (
               <li onClick={() => { setView("flyers"); setIsMenuOpen(false); }}>
@@ -109,15 +100,7 @@ const DashboardAdmin = () => {
           )}
         </header>
 
-        <section className="admin-panel-content"
-        // style={{
-        //   backgroundImage: "url('/img/logo-white.png')",
-        //   backgroundSize: "cover",
-        //   backgroundPosition: "center",
-        //   backgroundAttachment: "fixed",
-        //   backgroundRepeat: "no-repeat",
-        // }}
-        >
+        <section className="admin-panel-content" >
           {view === "empleados" && <EmpleadoManager />}
           {view === "menu" && <ItemMenuManager />}
           {view === "comanda" && <ComandaManager />}

@@ -1,0 +1,91 @@
+.info-section {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #1c1c1c;
+  color: white;
+  padding: 2rem;
+  gap: 2rem;
+  justify-content: center;
+  position: relative;
+}
+
+.info-text {
+  flex: 1 1 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 500px;
+  z-index: 2;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.info-item h2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.info-item p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #ccc;
+}
+
+.info-icon {
+  font-size: 2rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+/* Superposición de imágenes */
+.info-images {
+  flex: 1 1 400px;
+  position: relative;
+  max-width: 500px;
+  min-width: 300px;
+}
+
+.info-images img:first-child {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.info-images img:last-child {
+  width: 60%;
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  border-radius: 8px;
+  object-fit: cover;
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .info-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .info-images {
+    width: 100%;
+    max-width: none;
+  }
+
+  .info-images img:last-child {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    margin-top: 1rem;
+    width: 100%;
+  }
+}

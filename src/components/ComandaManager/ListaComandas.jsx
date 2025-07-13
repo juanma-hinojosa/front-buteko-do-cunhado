@@ -3,12 +3,19 @@ import axios from "axios";
 import socket from "../../socket";
 import AgregarItemComanda from "./AgregarItemComanda";
 
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root'); // Esto es necesario para accesibilidad
+
+
 const ESTADOS = ["pendiente", "retirar", "entregado", "cerrado"];
 
 const ComandaList = () => {
   const [comandas, setComandas] = useState([]);
   const [estadoFiltro, setEstadoFiltro] = useState("pendiente");
   const [metodosPagoPorComanda, setMetodosPagoPorComanda] = useState({});
+
+  const [comandaSeleccionada, setComandaSeleccionada] = useState(null);
 
 
   useEffect(() => {
@@ -38,16 +45,7 @@ const ComandaList = () => {
     };
   }, []);
 
-  // const cambiarEstado = (id, nuevoEstado) => {
-  //   const token = localStorage.getItem("token");
-  //   axios.put(
-  //     `http://localhost:5000/api/comandas/${id}/cambiar-estado`,
-  //     { nuevoEstado },
-  //     {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     }
-  //   );
-  // };
+
 
   const comandasFiltradas = comandas.filter(
     (c) => c.estado === estadoFiltro
@@ -85,7 +83,11 @@ const ComandaList = () => {
     <div className="lista-comandas">
       <h2>Comandas em tempo real</h2>
 
-      <div style={{ marginBottom: "1rem" }}>
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+        gap: "1rem",
+      }}>
         {ESTADOS.map((estado) => (
           <button
             key={estado}
@@ -115,27 +117,20 @@ const ComandaList = () => {
         }}
       >
         {comandasFiltradas.length === 0 ? (
-          <p>No hay comandas en estado "{estadoFiltro}"</p>
+          <p style={{ textTransform: "uppercase" }} >Não há comandas em "{estadoFiltro}"</p>
         ) : (
           comandasFiltradas.map((c) => (
-            <div key={c._id} className="comanda-card">
+            <div key={c._id} className="comanda-card" style={{ border: "1px solid white", padding: "10px" }}>
               <header>
                 <strong>Mesa {c.numeroMesa}</strong> – {c.nombreCliente}
               </header>
               <small>Estado: {c.estado}</small>
               <ul>
                 {c.items.map((it, i) => (
-                  // <li key={i}
-                  //   style={{
-                  //     textTransform: "capitalize"
-                  //   }}
-                  // >
-                  //   {it.producto?.nombre || "Eliminado"} – {it.observacion || "Sin obs"} –
-                  //   <strong > R$ {it.producto?.valor?.toFixed(2) || "0.00"}</strong>
-                  // </li>
+
 
                   <li key={i} style={{ textTransform: "capitalize" }}>
-                    {it.producto?.nombre || "Eliminado"} – {it.observacion || "Sin obs"} –
+                    {it.producto?.nombre || "Eliminado"} – {it.observacion || "Sem obs"} –
                     <strong> R$ {it.producto?.valor?.toFixed(2) || "0.00"}</strong>
                     {it.nuevo && <span style={{ color: "red", marginLeft: "6px" }}>🆕</span>}
                   </li>
@@ -149,22 +144,49 @@ const ComandaList = () => {
               </p>
 
 
+              {/* <h5>Vai adicionar mais alguma coisa?</h5> */}
 
-              {c.estado !== "cerrado" && <AgregarItemComanda comandaId={c._id} />}
+              {/* {c.estado !== "cerrado" && <AgregarItemComanda comandaId={c._id} />} */}
+
+              {c.estado !== "cerrado" && (
+                <>
+                  <h5>Vai adicionar mais alguma coisa?</h5>
+                  <button
+                    onClick={() => setComandaSeleccionada(c._id)}
+                  >
+                    Adicionar item
+                  </button>
+                </>
+
+              )}
+
+              <br />
+              <br />
 
 
               {c.estado !== "cerrado" && (
-                <div className="botones-estado">
+                <div className="botones-estado"
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+                    gap: "1rem",
+                    // padding: "2rem"
+                  }}
+                >
+                  {/* estados por lo que pasa la comanda  */}
                   {ESTADOS.filter((e) => e !== c.estado).map((e) => (
                     <button
                       key={e}
                       onClick={() => cambiarEstado(c._id, e)}
                       style={{
-                        marginRight: "5px",
-                        padding: "4px 8px",
-                        backgroundColor: "#eee",
                         border: "1px solid #aaa",
-                        borderRadius: "4px",
+                        marginRight: "10px",
+                        padding: "6px 12px",
+                        // backgroundColor: "#333",
+                        color: "white",
+                        // border: "none",
+                        borderRadius: "5px",
+                        cursor: "pointer",
                       }}
                     >
                       Marcar como {e}
@@ -174,7 +196,8 @@ const ComandaList = () => {
               )}
 
 
-              {/* Estados de metodo de pago */}
+
+              {/* Estados de metodo de pago visible entregado para cerrado*/}
               {c.estado !== "cerrado" && c.estado !== "pendiente" && c.estado !== "retirar" && (
                 <div style={{ marginTop: "10px" }}>
                   <label htmlFor={`metodo-${c._id}`}>Método de pagamento:</label>
@@ -187,6 +210,7 @@ const ComandaList = () => {
                         [c._id]: e.target.value,
                       })
                     }
+                    style={{ marginLeft: "10px" }}
                   >
                     <option value="">Escolha o metodo de pagamento</option>
                     <option value="dinheiro">Dinheiro</option>
@@ -201,6 +225,46 @@ const ComandaList = () => {
           ))
         )}
       </div>
+
+
+
+      <Modal
+        isOpen={!!comandaSeleccionada}
+        onRequestClose={() => setComandaSeleccionada(null)}
+        contentLabel="Agregar Item"
+        style={{
+          content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            width: '90%',
+            maxWidth: '500px',
+            padding: '20px',
+            backgroundColor: "#211f1f"
+          },
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <h3>Adicionar item</h3>
+          <button
+            onClick={() => setComandaSeleccionada(null)}
+            style={{ background: "none", border: "none", fontSize: "1.2rem", cursor: "pointer" }}
+          >
+            ❌
+          </button>
+        </div>
+
+        {comandaSeleccionada && (
+          <AgregarItemComanda
+            comandaId={comandaSeleccionada}
+            onClose={() => setComandaSeleccionada(null)}
+          />
+        )}
+      </Modal>
+
 
     </div>
   );

@@ -1,0 +1,202 @@
+/* Limitar ancho máximo */
+.topbar-container,
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Topbar */
+.topbar {
+  background: #000000;
+  /* opcional para fondo tipo imagen */
+  color: #fff;
+  font-size: 14px;
+  padding: 6px 0;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1001;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+
+.topbar.show {
+  transform: translateY(0%);
+}
+
+.topbar.hide {
+  transform: translateY(-100%);
+  /* display: none; */
+}
+
+.topbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.topbar-container span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    display: none;
+  }
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 36px;
+  /* la altura del topbar */
+  z-index: 1000;
+  /* background: rgba(255, 255, 255, 0.507); */
+  background: transparent;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  height: auto;
+}
+
+.navbar-container {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+        padding: 20px 20px;
+
+}
+
+/* Logo */
+.navbar-logo {
+  height: 120px;
+  width: 120px;
+}
+
+/* Links */
+.nav-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  position: relative;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #d1af49;
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-links li a:hover::after {
+  width: 100%;
+}
+
+/* Hamburguesa */
+.hamburger {
+  font-size: 28px;
+  cursor: pointer;
+  display: none;
+}
+
+.topbar-container svg {
+  color: #d1af49;
+}
+
+.navbar.scrolled {
+  top: 0;
+  /* Ocupa el lugar del topbar */
+  background: rgb(0, 0, 0);
+  transition: top 0.3s ease-in-out, background 0.3s ease-in-out;
+}
+
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .navbar {
+    top: 0 !important;
+    /* Sobrescribe el top: 40px de escritorio */
+    background-color: transparent;
+}
+
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    /* padding: 20px 0; */
+  }
+
+  .navbar-logo {
+  height: 60px;
+  width: 60px;
+}
+
+  .hamburger {
+    display: block;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100vh;
+    width: 70%;
+    background: #1a1a1a;
+    flex-direction: column;
+    padding: 40px 20px;
+    transition: right 0.3s ease;
+    z-index: 1002;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-links.open {
+    right: 0;
+  }
+
+  .close-btn {
+    align-self: flex-end;
+    font-size: 24px;
+    cursor: pointer;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* Ocultar botón cerrar en desktop */
+@media (min-width: 769px) {
+  .close-btn {
+    display: none;
+  }
+}

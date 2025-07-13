@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const AgregarItemComanda = ({ comandaId }) => {
+const AgregarItemComanda = ({ comandaId, onClose }) => {
   const [menu, setMenu] = useState([]);
   const [categoria, setCategoria] = useState("");
   const [productos, setProductos] = useState([]);
@@ -20,7 +20,7 @@ const AgregarItemComanda = ({ comandaId }) => {
 
   const handleAgregar = async () => {
     if (!producto) return toast.error("Selecciona un producto");
-
+    if (onClose) onClose();
     try {
       const token = localStorage.getItem("token");
       await axios.put(
@@ -39,35 +39,45 @@ const AgregarItemComanda = ({ comandaId }) => {
   };
 
   return (
-    <div style={{ marginTop: 10 }}>
+    <div style={{ marginTop: 10, color:"dark" }}>
       <h5>Vai adicionar mais alguma coisa?</h5>
-      <select value={categoria} onChange={e => {
-        setCategoria(e.target.value);
-        setProductos(menu.filter(p => p.categoria === e.target.value));
-        setProducto("");
-      }}>
-        <option value="">Categoría</option>
-        {categorias.map(cat => (
-          <option key={cat}>{cat}</option>
-        ))}
-      </select>
+      <br />
+      <div
+        style={{
+          maxWidth: "400px",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          gap: "16px",
+          // padding: "16px",
+        }}
+      >
+        <select value={categoria} onChange={e => {
+          setCategoria(e.target.value);
+          setProductos(menu.filter(p => p.categoria === e.target.value));
+          setProducto("");
+        }}>
+          <option value="">Categoría</option>
+          {categorias.map(cat => (
+            <option key={cat}>{cat}</option>
+          ))}
+        </select>
+        <select value={producto} onChange={e => setProducto(e.target.value)}>
+          <option value="">Produto</option>
+          {productos.map(p => (
+            <option key={p._id} value={p._id}>
+              {p.nombre} - R${p.valor}
+            </option>
+          ))}
+        </select>
+        <input
+          type="text"
+          placeholder="Comentario"
+          value={observacion}
+          onChange={e => setObservacion(e.target.value)}
+        />
+        <button onClick={handleAgregar}>Agregar</button>
+      </div>
 
-      <select value={producto} onChange={e => setProducto(e.target.value)}>
-        <option value="">Produto</option>
-        {productos.map(p => (
-          <option key={p._id} value={p._id}>
-            {p.nombre} - R${p.valor}
-          </option>
-        ))}
-      </select>
-
-      <input
-        type="text"
-        placeholder="Comentario"
-        value={observacion}
-        onChange={e => setObservacion(e.target.value)}
-      />
-      <button onClick={handleAgregar}>Agregar</button>
     </div>
   );
 };

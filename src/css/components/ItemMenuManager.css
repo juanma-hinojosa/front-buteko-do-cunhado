@@ -1,3 +1,46 @@
+/* Estilo para la sección de filtros */
+.filtro-categorias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #464646;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.filtro-categorias label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.filtro-categorias select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  min-width: 150px;
+  font-size: 14px;
+}
+
+.filtro-categorias button {
+  background-color: #009688;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.filtro-categorias button:hover {
+  background-color: #00796b;
+}
+
+
 .itemmenu-container {
   max-width: 900px;
   margin: auto;
@@ -72,4 +115,64 @@
 .itemmenu-card button:not(.delete) {
   background: #2980b9;
   color: white;
+}
+
+.botones-toggle {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.botones-toggle button {
+  background-color: #00796B;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+  .itemmenu-form {
+    grid-template-columns: 1fr; /* Una sola columna en pantallas pequeñas */
+  }
+
+  .form-buttons {
+    flex-direction: column;
+  }
+
+  .botones-toggle {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  border-top: 3px solid transparent;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
